@@ -1,0 +1,89 @@
+<html>
+    <head>
+      <script src='build/JSXTransformer.js'></script>
+      <script src='build/react.js'></script>
+
+      <style>
+        .bars {
+          width: 400px;
+          height: 200px;
+          overflow: scroll;
+          border: 2px solid #79a0c1;
+          padding: 0px;
+          list-style: none;
+        }
+
+        .one-bar {
+          float: left;
+          width: 20px;
+          background-color: #faeedd;
+          margin-left: 3px;
+          position: relative;
+        }
+      </style>
+
+      <script type="text/jsx">
+       /**
+       * @jsx React.DOM
+       */
+      var addBar = React.createClass({
+           handleChange: function(event) {
+             var bars = this.props.values;
+
+             bars.push(this.refs.newNumber.getDOMNode().value);
+
+             this.props.onItemAdd({values: bars});
+           },
+
+           render: function() {
+              return <div>
+                   <input type="number" ref="newNumber" defaultValue="2"/>
+                   <input type="button" value="Add value" onClick={this.handleChange}/>
+                </div>
+           }
+        })
+
+
+        , bars = React.createClass({
+            render: function() {
+              var lis = this.props.values.map(function(item, index){
+                var item_style = {
+                  height: item * 10 + 'px',
+                  left: (index + 0) * 1 + 'px',
+                  top: '10px'
+                };
+                return <li className="one-bar" style={item_style}>{item}</li>
+              });
+
+              return <ul className="bars">{lis}</ul>
+            }
+          })
+
+
+
+        , chart = React.createClass({
+            getInitialState: function() {
+               return {
+                   values: [1, 3, 4, 2, 5]
+               };
+            },
+            handleChange: function(state){
+                this.setState(state);
+            },
+            render: function() {
+              return <div>
+                       <addBar values={this.state.values} onItemAdd={this.handleChange}/>
+
+                       <bars values={this.state.values} />
+                    </div>
+            }
+          });
+
+      React.renderComponent(
+        <chart />,
+        document.getElementById('content')
+      );
+      </script>
+    </head>
+    <div id="content">Entry point</div>
+</html>

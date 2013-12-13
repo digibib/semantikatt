@@ -41,15 +41,17 @@ table { border-collapse: collapse; border-spacing: 0; }
 .form-header { float: right;}
 .form-search { float: left;}
 .clearfix { clear: both;}
-.button-medium { height: 1.5em; width: 6em; margin: 0 0.5em;}
-.button-big { height: 3em; width: 11em; margin: 0 0.5em;}
+button { border-radius: 2px; }
+.button-medium { height: 1.5em; width: 6em; margin: 0 0.5em; border: 1px solid #00563F;}
+.button-big { height: 3em; width: 11em; margin: 0 0.5em; background: #81BC78; border: 1px solid #00563F; }
+.button-big:hover { border: 1px solid #004020; background: #81BC88;}
 .input-group { margin-top: 1em; background: #eee;}
 .input-element { position: relative; }
 .form-line { margin:5px 0; }
 .form-input { width: 300px; padding: 2px; line-height: 1em; border: 1px solid #aaa; font-size:95%; }
 .form-input:focus { border: 1px solid #EB4C42;}
 .form-label { display:inline-block; width: 100px; font-weight: bold; font-size: 90%; text-align: right; margin-right:1em;}
-.add-button { position: absolute; left: -40px; width: 1.5em; height: 1.5em; text-align: center; border: 1px solid #c0c0c0; background:#eee;}
-.add-button:hover { border: 1px solid #aaa; }
+.add-button { position: absolute; left: -40px; width: 1.5em; height: 1.5em; text-align: center; border: 1px solid #00563F; background:#eee;}
+.add-button:hover { border: 1px solid #000; }
 .input-feedback { margin-left: 0.1em; }
 .input-required:before { color: red; content: '*'; }

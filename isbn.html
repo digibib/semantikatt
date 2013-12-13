@@ -11,7 +11,10 @@
 </head>
 <body>
   <div id="content"></div>
+    <!-- TODO - child-parent communication:
+         http://facebook.github.io/react/tips/communicate-between-components.html -->
   <script type="text/jsx">
+
     /** @jsx React.DOM */
 
     InputElementLine = React.createClass({
@@ -41,17 +44,27 @@
     });
 
     InputElement = React.createClass({
+      getInitialState: function() {
+        return { instances: this.props.element.instances };
+      },
+      addInstance: function() {
+        newState = this.state.instances;
+        newState.push({value: 'ny'});
+        this.setState({ instances: newState });
+      },
       render: function() {
         element = this.props.element;
-        var lines = this.props.element.instances.map(function(inst) {
+        var lines = this.state.instances.map(function(inst) {
           return (
             <InputElementLine element={element} instance={inst} />
           );
         });
-        var repeatable = function(element) {
+        addNew = this.addInstance;
         var addInput = function() {
+          addNew();
           console.log("legg til instance");
         }
+        var repeatable = function(element) {
           if (element.repeatable) {
             return (
               <button
@@ -111,10 +124,14 @@
         });
       },
 
+      handleChange: function(state) {
+        this.setState(state);
+      },
+
       render: function() {
         var groups = this.state.data.inputGroups.map(function(group) {
           return (
-            <InputGroup group={group} />
+            <InputGroup group={group} onStateChange={this.handleChange} />
           );
         });
 
@@ -126,7 +143,7 @@
                 <button className="button-medium">Søk</button>
               </div>
             <div className="form-header">
-              <button className="right button-big">Lagre</button>
+              <button className="right button-big"><strong>Lagre</strong></button>
               <button className="right button-big">Forhåndsvis MARC</button>
               <button className="right button-big">Forhåndsvis RDF</button>
             </div>
