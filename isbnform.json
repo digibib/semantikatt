@@ -1,0 +1,95 @@
+{
+	"title": "test",
+	"inputGroups": [
+		{
+			"title": "Identifikatorer",
+			"elements": [
+				{
+					"name": "ISBN",
+					"description": "ISBN-nummer",
+					"required": true,
+					"generated": true,
+					"repeatable": false
+				},
+				{
+					"name": "URI",
+					"description": "Generert URI",
+					"required": true,
+					"generated": true,
+					"repeatable": false
+				}
+			]
+		},
+		{
+			"title": "Grunndata",
+			"elements": [
+				{
+					"name": "tittel",
+					"description": "Bokas hovedtittel",
+					"required": true,
+					"generated": false,
+					"repeatable": false
+				},
+				{
+					"name": "undertittel",
+					"description": "Bokas undertittel",
+					"required": false,
+					"generated": false,
+					"repeatable": false
+				},
+				{
+					"name": "forlag",
+					"description": "Bokas utgiver",
+					"required": false,
+					"generated": false,
+					"repeatable": false
+				},
+				{
+					"name": "utgivelsesår",
+					"description": "Bokas utgivelsesår",
+					"required": true,
+					"generated": false,
+					"repeatable": false
+				}
+			]
+		},
+		{
+			"title": "Klassifisering",
+			"elements": [
+				{
+					"name": "dewey",
+					"description": "Dewey-nummer",
+					"required": false,
+					"generated": false,
+					"repeatable": true
+				},
+				{
+					"name": "emne",
+					"description": "Emne som beskriver boka",
+					"required": true,
+					"generated": false,
+					"repeatable": true
+				}
+			]
+		},
+		{
+			"title": "Relasjoner",
+			"elements": [
+				{
+					"name": "verk",
+					"description": "Verkstilknytning",
+					"required": true,
+					"generated": true,
+					"repeatable": false
+				},
+				{
+					"name": "link",
+					"description": "SameAs link",
+					"required": false,
+					"generated": false,
+					"repeatable": true
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title></title>
+  <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+  <script src="build/react.min.js"></script>
+  <script src="build/JSXTransformer.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+  <div id="content"></div>
+  <script type="text/jsx">
+    /** @jsx React.DOM */
+
+    InputElementLine = React.createClass({
+      render: function() {
+        var element = this.props.element;
+        return (
+          <div className="form-line">
+            <label for={element.name} className="form-label">{element.name}</label>
+            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} />
+            <span className="input-feedback" />
+          </div>
+        );
+      }
+    });
+
+    InputElement = React.createClass({
+      render: function() {
+        //var lines = this.props.element
+        return (
+          <div className="input-element">{this.props.element.name}
+          </div>
+        );
+      }
+    });
+
+    InputGroup = React.createClass({
+      render: function() {
+        var elements = this.props.group.elements.map(function(element) {
+          return (
+            <InputElement element={element} />
+          );
+        });
+
+        return (
+          <fieldset className="input-group">
+            <legend>{this.props.group.title}</legend>
+            {elements}
+          </fieldset>
+        );
+      }
+    });
+
+    InputForm = React.createClass({
+      getInitialState: function() {
+        return { data: { inputGroups: [], instances: [] } }
+      },
+
+      componentWillMount: function() {
+        this.loadFormData();
+      },
+
+      loadFormData: function() {
+        $.ajax({
+          url: this.props.url,
+          success: function(data) {
+            // Generated an object to keep instances, keyed by element name:
+            merged = [];
+            names = data.inputGroups.map(function(group) {
+              return group.elements.map(function(element) {
+                return element.name
+              });
+            });
+            merged = merged.concat.apply(merged, names)
+            data.instances = {};
+            merged.forEach(function(e) {
+              data.instances[e]  = [{value: ''}];
+            });
+            this.setState({data: data});
+          }.bind(this)
+        });
+      },
+
+      render: function() {
+        var inst = this.state.data.instances;
+        var instances = function(group) {
+          Object.keys(inst).map(function(name) {
+            return group.elements.filter(function(e) {
+              return e.name === name;
+            });
+          });
+        }
+        console.log(instances);
+        var groups = this.state.data.inputGroups.map(function(group) {
+          return (
+            <InputGroup group={group} instances={instances(group)} />
+          );
+        });
+
+        return (
+          <div className="input-group-outer">
+            <h2>{this.props.heading}</h2>
+            {groups}
+          </div>
+        );
+      }
+    });
+
+
+    React.renderComponent(
+      <InputForm url="isbnform.json" heading="Bok med ISBN-nummer" />,
+      document.getElementById('content')
+    );
+  </script>
+</body>
+</html>
