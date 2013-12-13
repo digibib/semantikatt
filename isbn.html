@@ -33,7 +33,7 @@
         return (
           <div className="form-line">
             <label for={element.name} className="form-label">{element.name}</label>
-            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} valueLink={this.linkState(element.name)} />
+            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} valueLink={this.linkState(element.nameg)} />
             <span className={"input-feedback" + required(element)}/>
           </div>
         );
@@ -127,7 +127,7 @@
               </div>
             <div className="form-header">
               <button className="right button-big">Lagre</button>
-              <button className="rigt button-big">Forhåndsvis MARC</button>
+              <button className="right button-big">Forhåndsvis MARC</button>
               <button className="right button-big">Forhåndsvis RDF</button>
             </div>
             <div className="clearfix"></div>
