@@ -11,14 +11,6 @@
 					"generated": true,
 					"repeatable": false,
 					"predicate": "bibo:isbn"
-				},
-				{
-					"name": "URI",
-					"description": "Generert URI",
-					"required": true,
-					"generated": true,
-					"repeatable": false,
-					"predicate": "dc:identifier"
 				}
 			]
 		},
