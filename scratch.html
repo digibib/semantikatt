@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title></title>
+  <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+  <script src="build/react-with-addons.min.js"></script>
+  <script src="build/JSXTransformer.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+  <div id="content"></div>
+  <script type="text/jsx">
+
+  /** @jsx React.DOM */
+
+  // http://facebook.github.io/react/docs/two-way-binding-helpers.html
+
+  var Hello = React.createClass({
+      mixins: [React.addons.LinkedStateMixin],
+      getInitialState: function() {
+          return {name: 'hei sveis'};
+      },
+      render: function() {
+          return (
+            <div>
+                <input type="text" valueLink={this.linkState('name')} />
+                {this.state.name}
+            </div>
+          );
+      }
+  });
+
+  React.renderComponent(<Hello />, document.getElementById('content'));
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <title></title>
   <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
-  <script src="build/react.min.js"></script>
+  <script src="build/react-with-addons.min.js"></script>
   <script src="build/JSXTransformer.js"></script>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 </head>
@@ -15,6 +15,12 @@
     /** @jsx React.DOM */
 
     InputElementLine = React.createClass({
+      mixins: [React.addons.LinkedStateMixin],
+      getInitialState: function() {
+        var state = {};
+        state[this.props.name] = this.props.instance.value;
+        return state;
+      },
       render: function() {
         var element = this.props.element;
         var required = function(element) {
@@ -27,7 +33,7 @@
         return (
           <div className="form-line">
             <label for={element.name} className="form-label">{element.name}</label>
-            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} value={this.props.instance.value} />
+            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} valueLink={this.linkState(element.name)} />
             <span className={"input-feedback" + required(element)}/>
           </div>
         );
