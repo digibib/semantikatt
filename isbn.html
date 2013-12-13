@@ -17,11 +17,18 @@
     InputElementLine = React.createClass({
       render: function() {
         var element = this.props.element;
+        var required = function(element) {
+            if (element.required) {
+              return " input-required";
+            } else {
+              return "";
+            }
+          }
         return (
           <div className="form-line">
             <label for={element.name} className="form-label">{element.name}</label>
-            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} />
-            <span className="input-feedback" />
+            <input disabled={element.generated} className="form-input" type="text" name={element.name} placeholder={element.description} value={this.props.instance.value} />
+            <span className={"input-feedback" + required(element)}/>
           </div>
         );
       }
@@ -29,9 +36,30 @@
 
     InputElement = React.createClass({
       render: function() {
-        //var lines = this.props.element
+        element = this.props.element;
+        var lines = this.props.element.instances.map(function(inst) {
+          return (
+            <InputElementLine element={element} instance={inst} />
+          );
+        });
+        var repeatable = function(element) {
+        var addInput = function() {
+          console.log("legg til instance");
+        }
+          if (element.repeatable) {
+            return (
+              <button
+                title={"Legg til " + element.name + "-element"} className="add-button"
+                onClick={addInput}>
+                +
+              </button>
+              );
+          }
+        }
         return (
-          <div className="input-element">{this.props.element.name}
+          <div className="input-element">
+            {repeatable(element)}
+            {lines}
           </div>
         );
       }
@@ -56,7 +84,7 @@
 
     InputForm = React.createClass({
       getInitialState: function() {
-        return { data: { inputGroups: [], instances: [] } }
+        return { data: { inputGroups: [] } }
       },
 
       componentWillMount: function() {
@@ -67,42 +95,37 @@
         $.ajax({
           url: this.props.url,
           success: function(data) {
-            // Generated an object to keep instances, keyed by element name:
-            merged = [];
-            names = data.inputGroups.map(function(group) {
-              return group.elements.map(function(element) {
-                return element.name
+            data.inputGroups.forEach(function(group) {
+              group.elements.forEach(function(element) {
+                element.instances = [{value: ''}];
               });
             });
-            merged = merged.concat.apply(merged, names)
-            data.instances = {};
-            merged.forEach(function(e) {
-              data.instances[e]  = [{value: ''}];
-            });
+            console.log(data);
             this.setState({data: data});
           }.bind(this)
         });
       },
 
       render: function() {
-        var inst = this.state.data.instances;
-        var instances = function(group) {
-          Object.keys(inst).map(function(name) {
-            return group.elements.filter(function(e) {
-              return e.name === name;
-            });
-          });
-        }
-        console.log(instances);
         var groups = this.state.data.inputGroups.map(function(group) {
           return (
-            <InputGroup group={group} instances={instances(group)} />
+            <InputGroup group={group} />
           );
         });
 
         return (
           <div className="input-group-outer">
-            <h2>{this.props.heading}</h2>
+              <div className="form-search">
+                <h2>{this.props.heading}</h2>
+                <input type="text" placeholder="ISBN-nummer" />
+                <button className="button-medium">Søk</button>
+              </div>
+            <div className="form-header">
+              <button className="right button-big">Lagre</button>
+              <button className="rigt button-big">Forhåndsvis MARC</button>
+              <button className="right button-big">Forhåndsvis RDF</button>
+            </div>
+            <div className="clearfix"></div>
             {groups}
           </div>
         );

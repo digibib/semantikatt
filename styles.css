@@ -36,9 +36,16 @@ textarea { overflow: auto; vertical-align: top; }
 table { border-collapse: collapse; border-spacing: 0; }
 
 #content { width: 1000px; margin: auto;}
-
+.left { float: left; }
+.right { float: right;}
+.form-header { float: right;}
+.form-search { float: left;}
+.clearfix { clear: both;}
+.button-medium { height: 1.5em; width: 6em; margin: 0 0.5em;}
+.button-big { height: 3em; width: 11em; margin: 0 0.5em;}
 .input-group { margin-top: 1em; background: #eee;}
-.form-line { margin:5px 0; position: relative; }
+.input-element { position: relative; }
+.form-line { margin:5px 0; }
 .form-input { width: 300px; padding: 2px; line-height: 1em; border: 1px solid #aaa; font-size:95%; }
 .form-input:focus { border: 1px solid #EB4C42;}
 .form-label { display:inline-block; width: 100px; font-weight: bold; font-size: 90%; text-align: right; margin-right:1em;}
