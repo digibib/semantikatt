@@ -9,14 +9,16 @@
 					"description": "ISBN-nummer",
 					"required": true,
 					"generated": true,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "bibo:isbn"
 				},
 				{
 					"name": "URI",
 					"description": "Generert URI",
 					"required": true,
 					"generated": true,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "dc:identifier"
 				}
 			]
 		},
@@ -28,28 +30,32 @@
 					"description": "Bokas hovedtittel",
 					"required": true,
 					"generated": false,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "dc:title"
 				},
 				{
 					"name": "undertittel",
 					"description": "Bokas undertittel",
 					"required": false,
 					"generated": false,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "fabio:hasSubtitle"
 				},
 				{
 					"name": "forlag",
 					"description": "Bokas utgiver",
 					"required": false,
 					"generated": false,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "dc:publisher"
 				},
 				{
 					"name": "utgivelsesår",
 					"description": "Bokas utgivelsesår",
 					"required": true,
 					"generated": false,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "dc:issued"
 				}
 			]
 		},
@@ -61,14 +67,16 @@
 					"description": "Dewey-nummer",
 					"required": false,
 					"generated": false,
-					"repeatable": true
+					"repeatable": true,
+					"predicate": "deich:dewey"
 				},
 				{
 					"name": "emne",
 					"description": "Emne som beskriver boka",
 					"required": true,
 					"generated": false,
-					"repeatable": true
+					"repeatable": true,
+					"predicate": "dc:subject"
 				}
 			]
 		},
@@ -80,14 +88,16 @@
 					"description": "Verkstilknytning",
 					"required": true,
 					"generated": true,
-					"repeatable": false
+					"repeatable": false,
+					"predicate": "fabio:isManifestationOf"
 				},
 				{
 					"name": "link",
 					"description": "SameAs link",
 					"required": false,
 					"generated": false,
-					"repeatable": true
+					"repeatable": true,
+					"predicate": "owl:sameAs"
 				}
 			]
 		}
